@@ -8,7 +8,13 @@ y1 = float(input('Введите y1: '))
 x2 = float(input('Введите x2: '))
 y2 = float(input('Введите y1: '))
 
-k = (y1 - y2) / (x1 - x2)
-b = y2 - k*x2
+if x1 == x2:
+    res = f'x = {x1}'
+elif y1 == y2:
+    res = f'y = {y1}'
+else:
+    k = (y1 - y2) / (x1 - x2)
+    b = y2 - k*x2
+    res = f'y = {k}x + {b}'
 
-print(f'y = {k}x + {b}')
+print(res)
