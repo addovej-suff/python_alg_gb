@@ -28,3 +28,4 @@ while attempts:
 
 if attempts == 0:
     print('Вы исчерпали количество попыток')
+    print(f'Загаданное число: {num}')
