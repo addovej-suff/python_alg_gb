@@ -115,7 +115,7 @@ def plot_timeit(timeit_count=1000):
     second_times = []
     third_times = []
     _start = 20
-    _end = 10000
+    _end = 30000
     _step = 500
     for size in range(_start, _end, _step):
         print(f'Calculating {size}-size of array')
@@ -135,80 +135,77 @@ def plot_timeit(timeit_count=1000):
     plt.show()
 
 
-test(first)
-test(second)
-test(third)
+if __name__ == '__main__':
+    # Все замеры были сделаны на машине:
+    # OS macOS High Sierra
+    # 3 GHz Intel Core i5 (7400)
+    # 24 GB 2400 MHz DDR4
 
-plot_timeit()
+    test(first)
+    test(second)
+    test(third)
 
+    plot_timeit()
 
-c_run('first(1000)')
-#       5323 function calls in 0.002 seconds
-#
-# Ordered by: standard name
-#
-# ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-#      1    0.000    0.000    0.002    0.002 <string>:1(<module>)
-#   1000    0.001    0.000    0.001    0.000 random.py:174(randrange)
-#   1000    0.000    0.000    0.002    0.000 random.py:218(randint)
-#   1000    0.001    0.000    0.001    0.000 random.py:224(_randbelow)
-#      1    0.000    0.000    0.002    0.002 task_1.py:46(first)
-#      1    0.000    0.000    0.002    0.002 task_1.py:47(<listcomp>)
-#      1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
-#   1000    0.000    0.000    0.000    0.000 {method 'bit_length' of 'int' objects}
-#      1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
-#   1318    0.000    0.000    0.000    0.000 {method 'getrandbits' of '_random.Random' objects}
+    c_run('first(1000)')
+    #       5323 function calls in 0.002 seconds
+    #
+    # Ordered by: standard name
+    #
+    # ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    #      1    0.000    0.000    0.002    0.002 <string>:1(<module>)
+    #   1000    0.001    0.000    0.001    0.000 random.py:174(randrange)
+    #   1000    0.000    0.000    0.002    0.000 random.py:218(randint)
+    #   1000    0.001    0.000    0.001    0.000 random.py:224(_randbelow)
+    #      1    0.000    0.000    0.002    0.002 task_1.py:46(first)
+    #      1    0.000    0.000    0.002    0.002 task_1.py:47(<listcomp>)
+    #      1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
+    #   1000    0.000    0.000    0.000    0.000 {method 'bit_length' of 'int' objects}
+    #      1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+    #   1318    0.000    0.000    0.000    0.000 {method 'getrandbits' of '_random.Random' objects}
 
+    c_run('second(1000)')
+    #       5345 function calls in 0.002 seconds
+    #
+    # Ordered by: standard name
+    #
+    # ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    #      1    0.000    0.000    0.002    0.002 <string>:1(<module>)
+    #   1000    0.001    0.000    0.001    0.000 random.py:174(randrange)
+    #   1000    0.000    0.000    0.002    0.000 random.py:218(randint)
+    #   1000    0.001    0.000    0.001    0.000 random.py:224(_randbelow)
+    #      1    0.000    0.000    0.002    0.002 task_1.py:75(second)
+    #      1    0.000    0.000    0.002    0.002 task_1.py:76(<listcomp>)
+    #      1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
+    #      1    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+    #   1000    0.000    0.000    0.000    0.000 {method 'bit_length' of 'int' objects}
+    #      1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+    #   1339    0.000    0.000    0.000    0.000 {method 'getrandbits' of '_random.Random' objects}
 
-c_run('second(1000)')
-#       5345 function calls in 0.002 seconds
-#
-# Ordered by: standard name
-#
-# ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-#      1    0.000    0.000    0.002    0.002 <string>:1(<module>)
-#   1000    0.001    0.000    0.001    0.000 random.py:174(randrange)
-#   1000    0.000    0.000    0.002    0.000 random.py:218(randint)
-#   1000    0.001    0.000    0.001    0.000 random.py:224(_randbelow)
-#      1    0.000    0.000    0.002    0.002 task_1.py:75(second)
-#      1    0.000    0.000    0.002    0.002 task_1.py:76(<listcomp>)
-#      1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
-#      1    0.000    0.000    0.000    0.000 {built-in method builtins.len}
-#   1000    0.000    0.000    0.000    0.000 {method 'bit_length' of 'int' objects}
-#      1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
-#   1339    0.000    0.000    0.000    0.000 {method 'getrandbits' of '_random.Random' objects}
+    c_run('third(1000)')
+    #       5312 function calls in 0.002 seconds
+    #
+    # Ordered by: standard name
+    #
+    # ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    #      1    0.000    0.000    0.002    0.002 <string>:1(<module>)
+    #   1000    0.001    0.000    0.001    0.000 random.py:174(randrange)
+    #   1000    0.000    0.000    0.002    0.000 random.py:218(randint)
+    #   1000    0.001    0.000    0.001    0.000 random.py:224(_randbelow)
+    #      1    0.000    0.000    0.002    0.002 task_1.py:96(third)
+    #      1    0.000    0.000    0.002    0.002 task_1.py:97(<listcomp>)
+    #      1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
+    #      1    0.000    0.000    0.000    0.000 {built-in method builtins.max}
+    #      1    0.000    0.000    0.000    0.000 {built-in method builtins.min}
+    #      1    0.000    0.000    0.000    0.000 {built-in method builtins.sum}
+    #   1000    0.000    0.000    0.000    0.000 {method 'bit_length' of 'int' objects}
+    #      1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+    #   1302    0.000    0.000    0.000    0.000 {method 'getrandbits' of '_random.Random' objects}
+    #      2    0.000    0.000    0.000    0.000 {method 'index' of 'list' objects}
 
-
-c_run('third(1000)')
-#       5312 function calls in 0.002 seconds
-#
-# Ordered by: standard name
-#
-# ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-#      1    0.000    0.000    0.002    0.002 <string>:1(<module>)
-#   1000    0.001    0.000    0.001    0.000 random.py:174(randrange)
-#   1000    0.000    0.000    0.002    0.000 random.py:218(randint)
-#   1000    0.001    0.000    0.001    0.000 random.py:224(_randbelow)
-#      1    0.000    0.000    0.002    0.002 task_1.py:96(third)
-#      1    0.000    0.000    0.002    0.002 task_1.py:97(<listcomp>)
-#      1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
-#      1    0.000    0.000    0.000    0.000 {built-in method builtins.max}
-#      1    0.000    0.000    0.000    0.000 {built-in method builtins.min}
-#      1    0.000    0.000    0.000    0.000 {built-in method builtins.sum}
-#   1000    0.000    0.000    0.000    0.000 {method 'bit_length' of 'int' objects}
-#      1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
-#   1302    0.000    0.000    0.000    0.000 {method 'getrandbits' of '_random.Random' objects}
-#      2    0.000    0.000    0.000    0.000 {method 'index' of 'list' objects}
-
-
-# Анализ:
-# Первый алгоритм имеет сложность O(N) + O(M), где М - размер массива между экстремумами
-# Второй алгоритм имеет такую же сложность, как и первый
-# Третий алгоритм имеет сложность O(N) + O(N) + O(N) + O(M), однако работает быстрее из-за встроенных функций
-
-# Заключение:
-# Время выполнения алгоритма линейно, но прыгает из-за рандома.
-# Первые два примерно одинаковы по времени выполнения
-# Третий алгоритм является наиболее быстрым несмотря на то
-# Первые два алгоритма выиграли только в одной точке при N = 8000,
-# можно считать это погрешностью
+    # Заключение:
+    # Время выполнения алгоритма линейно, но прыгает из-за рандома.
+    # Первые два примерно одинаковы по времени выполнения
+    # Третий алгоритм является наиболее быстрым несмотря на то
+    # Первые два алгоритма выиграли только в одной точке при N = 8000,
+    # можно считать это погрешностью

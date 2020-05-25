@@ -29,27 +29,31 @@ def test(func):
 
 
 def sieve(n):
-    """
-    :param n: int
-        1 < n < 78498
-    :return: int
-        prime number
-    """
+    assert n > 0, 'Необходимо ввести номер простого числа от > 0'
 
-    assert 0 < n < 78498, 'Необходимо ввести номер простого числа от 1 до 78497'
+    if n == 1:
+        return 2
 
-    init_num = 1000000
-    _sieve = [i for i in range(init_num)]
-    _sieve[1] = 0
+    chunk_start = 2
+    chunk_size = n
+    primes_len = 0
+    res = [0, 0]
 
-    for i in range(2, init_num):
-        if _sieve[i] != 0:
-            j = i + i
-            while j < init_num:
-                _sieve[j] = 0
-                j += i
+    while primes_len < n:
+        _sieve = res + [i for i in range(chunk_start, chunk_size)]
+        for i in range(2, chunk_size):
+            if _sieve[i] != 0:
+                j = i + i
+                while j < chunk_size:
+                    _sieve[j] = 0
+                    j += i
 
-    res = [i for i in _sieve if i != 0]
+        res = _sieve
+        primes_len = len([i for i in _sieve if i != 0])
+        chunk_start = chunk_size
+        chunk_size = 5 * chunk_size
+
+    res = [i for i in res if i != 0]
     return res[n - 1]
 
 
@@ -63,6 +67,7 @@ def prime(n):
                 d += 2
             if d * d > num:
                 yield num
+    assert n > 0, 'Необходимо ввести номер простого числа от > 0'
 
     return next(islice(_primes(), n - 1, None))
 
@@ -73,7 +78,7 @@ def plot_timeit():
     prime_times = []
     timeit_count = 1000
     _end = 10000
-    _step = 499
+    _step = 500
     for case in range(1, _end, _step):
         print(f'Calculating {case}-i prime number')
         cases.append(case)
@@ -89,23 +94,47 @@ def plot_timeit():
     plt.show()
 
 
-# test(sieve)
-# test(prime)
+if __name__ == '__main__':
+    # Все замеры были сделаны на машине:
+    # OS macOS High Sierra
+    # 3 GHz Intel Core i5 (7400)
+    # 24 GB 2400 MHz DDR4
 
-# plot_timeit()
+    test(sieve)
+    test(prime)
 
-c_run('sieve(10000)')
-c_run('prime(10000)')
+    plot_timeit()
 
+    c_run('sieve(90000)')
+    #           20 function calls in 1.392 seconds
+    #
+    # Ordered by: standard name
+    #
+    # ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    #      1    0.009    0.009    1.392    1.392 <string>:1(<module>)
+    #      1    1.180    1.180    1.383    1.383 task_2.py:31(sieve)
+    #      5    0.071    0.014    0.071    0.014 task_2.py:43(<listcomp>)
+    #      5    0.089    0.018    0.089    0.018 task_2.py:52(<listcomp>)
+    #      1    0.042    0.042    0.042    0.042 task_2.py:56(<listcomp>)
+    #      1    0.000    0.000    1.392    1.392 {built-in method builtins.exec}
+    #      5    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+    #      1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
-# Анализ:
-# Алгоритм «Решето Эратосфена» подразумевает исключение не простых чисел из какого-то массива.
-# Для нахождения N-го простого числа, требуется исходный массив чисел такого размера,
-# чтобы получившийся массив простых чисел был размером не меньше N.
-# В ходе оптимизации не был найден способ, который позволил бы динамически формировать исходный массив,
-# размер которого зависел бы от N согласно условию выше.
-# Текущая реализация алгоритма имеет сложность
+    c_run('prime(90000)')
+    #           90006 function calls in 5.641 seconds
+    #
+    # Ordered by: standard name
+    #
+    # ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    #      1    0.000    0.000    5.641    5.641 <string>:1(<module>)
+    #      1    0.000    0.000    5.641    5.641 task_2.py:60(prime)
+    #  90001    5.631    0.000    5.631    0.000 task_2.py:61(_primes)
+    #      1    0.000    0.000    5.641    5.641 {built-in method builtins.exec}
+    #      1    0.010    0.010    5.641    5.641 {built-in method builtins.next}
+    #      1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
-# Второй алгоритм будет иметь сложность O(N/2)...
 
 # Заключение:
+# Первый алгоритм («Решето Эратосфена») работает быстрее, после N = 6000
+# До этого выигрывает второй алгоритм, но не намного.
+# Можно сделать вывод, что первый алгоритм работает лучше
