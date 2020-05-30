@@ -192,7 +192,7 @@ def third(size=20, min_item=1, max_item=99):
 
 
 memory_info = MemoryInfo((first, second, third))
-memory_info(False, first={'size': 100}, second={'size': 100})
+memory_info()
 print(*memory_info.res, sep='\n')
 
 
